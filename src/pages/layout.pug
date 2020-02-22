@@ -1,0 +1,15 @@
+doctype html
+html(lang="en")
+  head
+    title Title
+    meta(charset="UTF-8")
+    if meta
+      each item in meta
+        meta(name=item.name, content=item.content)
+    link(rel="stylesheet", href="fonts/bundle.css")
+    link(rel="stylesheet", href="css/main.css")
+  body
+    .page
+      block content
+    script(src="js/main.js")
+    block scripts

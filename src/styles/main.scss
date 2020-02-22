@@ -1,0 +1,24 @@
+$font-stack: 'Gotham Pro', 'Roboto', sans-serif;
+
+body {
+  font-family: $font-stack;
+  background-color: bisque;
+  height: inherit;
+}
+
+button {
+  display: inline-block;
+  vertical-align: top;
+  color: inherit;
+  font-family: inherit;
+  border: none;
+  background: transparent;
+  outline: none;
+  position: relative;
+  font-size: inherit;
+  line-height: inherit;
+
+  &:hover {
+    cursor: pointer;
+  }
+}

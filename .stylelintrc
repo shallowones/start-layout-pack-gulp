@@ -1,0 +1,12 @@
+{
+  "plugins": [
+    "stylelint-prettier"
+  ],
+  "rules": {
+    "unit-blacklist": [
+      "rem",
+      "em"
+    ],
+    "indentation": 2
+  }
+}

@@ -1,0 +1,19 @@
+@font-face {
+  font-family: 'Roboto';
+  src: url('hinted-Roboto-Medium.eot');
+  src: local('Roboto Medium'), local('Roboto-Medium'), url('hinted-Roboto-Medium.eot?#iefix') format('embedded-opentype'),
+    url('hinted-Roboto-Medium.woff2') format('woff2'), url('hinted-Roboto-Medium.woff') format('woff'),
+    url('hinted-Roboto-Medium.ttf') format('truetype'), url('hinted-Roboto-Medium.svg#Roboto-Medium') format('svg');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Gotham Pro';
+  src: url('hinted-GothamPro-Medium.eot');
+  src: local('GothamPro-Medium'), url('hinted-GothamPro-Medium.eot?#iefix') format('embedded-opentype'),
+    url('hinted-GothamPro-Medium.woff2') format('woff2'), url('hinted-GothamPro-Medium.woff') format('woff'),
+    url('hinted-GothamPro-Medium.ttf') format('truetype'), url('hinted-GothamPro-Medium.svg#GothamPro-Medium') format('svg');
+  font-weight: 500;
+  font-style: normal;
+}

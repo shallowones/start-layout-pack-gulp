@@ -1,0 +1,54 @@
+{
+  "name": "start-layout-pack-gulp",
+  "version": "1.0.0",
+  "description": "Репозиторий, который содержит сборку для начала верстки (gulp)",
+  "main": "index.js",
+  "scripts": {
+    "start": "set NODE_ENV=DEVELOPMENT && gulp",
+    "dist": "stylelint src/styles/** && eslint src/scripts/** && set NODE_ENV=PRODUCTION && gulp"
+  },
+  "author": "Pavel Belinovich",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/preset-env": "7.8.4",
+    "@babel/preset-typescript": "7.8.3",
+    "@types/jquery": "3.3.32",
+    "@typescript-eslint/eslint-plugin": "2.20.0",
+    "@typescript-eslint/parser": "2.20.0",
+    "autoprefixer": "9.7.4",
+    "browser-sync": "2.26.7",
+    "cssnano": "4.1.10",
+    "deep-files": "2.0.1",
+    "del": "5.1.0",
+    "eslint": "6.8.0",
+    "eslint-config-prettier": "6.10.0",
+    "eslint-plugin-prettier": "3.1.2",
+    "gulp": "4.0.2",
+    "gulp-babel": "8.0.0",
+    "gulp-concat": "2.6.1",
+    "gulp-imagemin": "7.1.0",
+    "gulp-postcss": "8.0.0",
+    "gulp-pug": "4.0.1",
+    "gulp-sass": "4.0.2",
+    "gulp-sourcemaps": "2.6.5",
+    "gulp-terser-js": "5.1.2",
+    "merge-stream": "2.0.0",
+    "prettier": "1.19.1",
+    "stylelint": "13.2.0",
+    "stylelint-prettier": "1.1.2",
+    "typescript": "3.8.2"
+  },
+  "dependencies": {
+    "jquery": "3.4.1",
+    "normalize.css": "8.0.1"
+  },
+  "browserslist": {
+    "production": [
+      "> 1%",
+      "last 2 versions"
+    ],
+    "development": [
+      "last 1 version"
+    ]
+  }
+}

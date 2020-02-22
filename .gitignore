@@ -1,0 +1,61 @@
+node_modules
+/.cache/
+/coverage/
+/dist/
+/demo/
+.DS_Store
+yarn.lock
+npm-debug.log
+yarn-error.log
+package-lock.json
+
+# Editor directories and files
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+.vscode/**
+*.code-workspace
+
+#
+build/
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+xcuserdata
+*.xccheckout
+*.moved-aside
+DerivedData
+*.hmap
+*.ipa
+*.xcuserstate
+project.xcworkspace
+
+# Android/IntelliJ
+.gradle
+local.properties
+*.iml
+/out/
+
+# mpeltonen/sbt-idea plugin
+.idea_modules
+
+# JIRA plugin
+atlassian-ide-plugin.xml
+
+# Crashlytics plugin (for Android Studio and IntelliJ)
+com_crashlytics_export_strings.xml
+crashlytics.properties
+crashlytics-build.properties
+fabric.properties
+
+# Thumbnails
+._*
+
+.cache
