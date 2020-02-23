@@ -9,4 +9,5 @@ module.exports = {
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/no-var-requires': 'off',
   },
+  ignorePatterns: ['node_modules/**/*', 'build/**/*', 'dist/**/*'],
 }

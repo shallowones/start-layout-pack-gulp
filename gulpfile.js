@@ -6,14 +6,22 @@ const autoprefixer = require('autoprefixer')
 const cssnano = require('cssnano')
 const sourcemaps = require('gulp-sourcemaps')
 const postcss = require('gulp-postcss')
-const babel = require('gulp-babel')
-const merge = require('merge-stream')
-const concat = require('gulp-concat')
-const terser = require('gulp-terser-js')
+const postcssImport = require('postcss-import')
+const rollup = require('rollup')
+const rollupMultiEntryPlugin = require('rollup-plugin-multi-entry')
+const rollupResolvePlugin = require('@rollup/plugin-node-resolve')
+const rollupCommonJSPlugin = require('@rollup/plugin-commonjs')
+const rollupBabelPlugin = require('rollup-plugin-babel')
+const { terser: rollupTerserPlugin } = require('rollup-plugin-terser')
 const pug = require('gulp-pug')
 const imagemin = require('gulp-imagemin')
 const deepFiles = require('deep-files')
-const { vendor, pugConstants } = require('./layout.config')
+
+let pugConstants = {}
+
+try {
+  pugConstants = require('./src/pages/constants')
+} catch (e) {}
 
 const { NODE_ENV } = process.env
 const isProduction = NODE_ENV && NODE_ENV.trim().toLowerCase() === 'production'
@@ -41,45 +49,65 @@ const FOLDERS_TO = {
 const clean = () => del(`./${buildFolder}`)
 
 const buildStyles = () => {
-  let pipeLine = gulp
-    .src(FOLDERS_FROM.STYLES)
-    .pipe(sourcemaps.init())
-    .pipe(sass())
-    .pipe(sourcemaps.write())
+  let pipeLine = gulp.src(getSourceFolder('styles/main.scss'))
 
-  if (vendor.css && vendor.css.length) {
-    pipeLine = merge(gulp.src(vendor.css), pipeLine)
+  if (!isProduction) {
+    pipeLine = pipeLine.pipe(sourcemaps.init())
   }
 
-  const postcssPlugins = [autoprefixer]
+  const postcssPlugins = [postcssImport, autoprefixer]
 
   if (isProduction) {
-    postcssPlugins.push(cssnano)
+    postcssPlugins.push(
+      cssnano({
+        preset: [
+          'default',
+          {
+            discardComments: {
+              removeAll: true,
+            },
+          },
+        ],
+      })
+    )
   }
 
-  return pipeLine
-    .pipe(concat('main.css'))
-    .pipe(postcss(postcssPlugins))
-    .pipe(gulp.dest(FOLDERS_TO.STYLES))
-    .pipe(browserSync.stream())
+  pipeLine = pipeLine.pipe(sass()).pipe(postcss(postcssPlugins))
+
+  if (!isProduction) {
+    pipeLine = pipeLine.pipe(sourcemaps.write())
+  }
+
+  return pipeLine.pipe(gulp.dest(FOLDERS_TO.STYLES)).pipe(browserSync.stream())
 }
 
-const buildScripts = () => {
-  let pipeLine = gulp
-    .src(FOLDERS_FROM.SCRIPTS)
-    .pipe(sourcemaps.init())
-    .pipe(babel({ presets: ['@babel/preset-env', '@babel/preset-typescript'] }))
-    .pipe(sourcemaps.write())
-
-  if (vendor.js && vendor.js.length) {
-    pipeLine = merge(gulp.src(vendor.js), pipeLine)
-  }
+const buildScripts = async () => {
+  const plugins = [
+    rollupMultiEntryPlugin(),
+    rollupResolvePlugin({ extensions: ['.js', '.json', '.ts'] }),
+    rollupCommonJSPlugin(),
+    rollupBabelPlugin({
+      exclude: 'node_modules/**',
+      presets: ['@babel/preset-env', '@babel/preset-typescript'],
+      modules: false,
+    }),
+  ]
 
   if (isProduction) {
-    pipeLine = pipeLine.pipe(terser())
+    plugins.push(rollupTerserPlugin({ sourcemap: false, output: { comments: false } }))
   }
 
-  return pipeLine.pipe(concat('main.js')).pipe(gulp.dest(FOLDERS_TO.SCRIPTS))
+  const bundle = await rollup.rollup({
+    input: FOLDERS_FROM.SCRIPTS,
+    plugins,
+  })
+
+  return bundle.write({
+    file: `${FOLDERS_TO.SCRIPTS}/main.js`,
+    sourcemap: !isProduction && 'inline',
+    format: 'umd',
+    name: 'main',
+  })
 }
 
 const buildPages = () => {

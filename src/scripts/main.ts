@@ -1,7 +1,6 @@
-;(function($) {
-  console.log('main here 3')
+import $ from 'jquery'
+import { asd } from './mainSecond'
 
-  const qwe = 'asd1'
+$('body').addClass('wow')
 
-  const select = $('body').addClass('wow')
-})(jQuery)
+console.log('asd', asd)
