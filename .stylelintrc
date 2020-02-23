@@ -3,10 +3,7 @@
     "stylelint-prettier"
   ],
   "rules": {
-    "unit-blacklist": [
-      "rem",
-      "em"
-    ],
+    "unit-blacklist": ["em"],
     "indentation": 2
   }
 }
